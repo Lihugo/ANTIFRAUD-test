@@ -1,0 +1,44 @@
+1、首先确定要测试的scf服务包依赖什么版本的client的jar包。
+需要看的包就是
+com.bj58.spat.scf.protocol-××-SNAPSHOT.jar
+com.bj58.spat.scf.serializer-××-SNAPSHOT.jar
+com.bj58.spat.scf.client-××-SNAPSHOT.jar
+框架提供了最新的上述jar包的版本，但是不排除有些scf服务包不依赖最新的版本。所以需要对应正确的版本。
+例如：
+		<dependency>
+			<groupId>com.bj58.biz</groupId>
+			<artifactId>com.bj58.biz.usercollector.contract</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>com.bj58.spat.scf.client</artifactId>
+					<groupId>com.bj58.spat</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>com.bj58.spat.scf.serializer</artifactId>
+					<groupId>com.bj58.spat</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+这种情况就是不使用服务包所以依赖的版本，使用框架的版本。
+或者将jar包拷入到项目的内指定到存放的路径
+		<dependency>
+			<groupId>com.bj58.biz</groupId>
+			<artifactId>com.bj58.biz.usercollector.contract</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/com.bj58.biz.usercollector.contract-0.0.2-SNAPSHOT.jar</systemPath>
+		</dependency>
+
+
+2、根目录下scf.config就是scf服务的配置，怎么配置就不说了，大家都懂的。
+如果要改变位置，请修改conf.properties中的SCF.ConfigPath。
+
+3、SCF目前只支持用插件和mvn命令执行，主要是考虑服务包太多，控制项目的整体容量。
+
+4、scftest.xml不是必须的。可以将内容放到其他xml中和其他种类测试混合测试。
+
+5、部分scf服务包，执行的时候会报实体类串行化失败。
+类似于这样，java.lang.ClassNotFoundException: Cannot find class with typId,target class: java.lang.Object,typeId:-570478192
+可以将被测试的jar包，拷贝一份放入到scf串行化包的maven本地库的目录中即可。
+

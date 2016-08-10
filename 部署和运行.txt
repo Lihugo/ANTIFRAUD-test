@@ -1,0 +1,56 @@
+【搭建环境maven+svn+selenium+testng】
+
+1、安装jdk、eclipse、mvn、ant。
+
+2、eclipse安装mvn插件。
+Help>>Install New Software，workwith 填入“http://beust.com/eclipse/”，然后一路安装。
+
+3、eclipse 导入svn工程。
+File >> new >> other >> 从svn检出项目，填入资源库的位置。
+
+4、mvn 加入公司的私服地址
+selenium-firefox-driver 的包公司的私服没有，需要引远程的库
+在mvn的安装路径下/conf/setting.xml
+	<mirror>
+      		<id>selenium-public-snapshots</id>
+      		<mirrorOf>*</mirrorOf>
+      		<url>http://repo1.maven.org/maven2/org/seleniumhq/selenium/</url>
+	</mirror>
+		<mirror>
+      <!--This sends everything else to /public -->
+      <id>nexus-thirdparty</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://10.58.120.19:8058/nexus/content/repositories/thirdparty/</url>
+    </mirror>
+    
+  5、svn同步项目
+  选中项目 鼠标右键>>team>>与资源库同步 ，操作类似svn。
+  
+  如果没有太大的问题，应该可以运行了。目录安排可以看一下前台项目的命名规范的文档。
+
+
+【testng的运行方式】
+
+1、命令行方式
+项目根目录下执行run.bat。外部jar放到Lib目录下。
+注意：不要在eclipse里执行run.bat
+>>run
+
+2、Ant运行方式
+安装Ant，配置环境变量path和ANT_HOME，可以在命令行使用ant。
+在执行的目录放入build.xml，具体配置看build.xml吧。
+外部jar放到Lib目录下。
+>>ant
+
+3、eclipse插件运行
+help >> install new software
+work with 添加下载路径http://beust.com/eclipse/
+选中testNG 安装
+装上插件后，可以定义run configuare。选择按照指定的类、方法、套件xml文件进行执行，默认eclipse会生成临时的xml配置文件执行。
+目前的插件的方式，不能进行自定义监听的进行。
+
+4、mvn方式运行
+项目根目录下
+在命令行方式下
+>>mvn clean
+>>mvn test

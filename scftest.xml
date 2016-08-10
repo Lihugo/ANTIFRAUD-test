@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AntiFraud"  parallel="false" >
+  <test name="AntiFraud_T1" preserve-order="true">
+  <parameter name="scfname" value="antifraud" />
+  <parameter name="scfurl" value="tcp://antifraud/AntiFraudImpl" />
+    <classes>
+	    <class name="antifraud.AccumulationPolicyTest"/>
+	   	<class name="antifraud.GraylistPolicyTest"/>	   	
+	    <class name="antifraud.ProportionPolicyTest" />
+	   	 
+	    
+    </classes>
+  </test>    
+  <listeners>
+  	<listener class-name="com.bj58.qa.atf.report.HTMLReporter" />
+  	<listener class-name="com.bj58.qa.atf.listener.ExecutionAndInvokedListener58Adapter"  />
+  	<listener class-name="com.bj58.qa.atf.listener.TestListener58Adapter" />
+  </listeners>
+</suite>

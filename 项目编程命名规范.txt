@@ -1,0 +1,55 @@
+1、源文件目录 src/test/java
+   编译文件目录 target/test-classes
+   资源文件 src/main/resources
+
+2、工程目录结构
+源文件
+|--src/test/java
+|----elements	(页面元素的捕捉，名称暂定 webdriver部分)
+|----pages	(页面动作和属性值获取 名称暂定 webdriver部分)
+|----testcase	(测试套件、用例,可以根据模块建立下级包	名称暂定 testng部分)
+|----data	(数据驱动 名称暂定 testng部分)
+
+3、命名规则
+
+例如：pA页面
+pAPageElement.java 页面元素类
+pAPage.java 页面类
+
+例如：mA模块
+mATest.java 套件类
+mAData.java 数据驱动类
+
+testcase类中基本测试函数，**Test
+testcase类中基本开始函数 setUp
+testcase类中基本结束函数 tearDown
+
+page类中的动作函数  **Action
+page类中的请求元素属性函数 get**(属性名)By**(元素名)
+page类中的设置元素属性函数 set**(属性名)By**(元素名)
+
+elements类中的元素函数 **(元素名)
+
+data类中的数据函数 **(对应的测试函数名)Data
+
+
+4、注释规则
+测试类和测试方法一定要标注@test。
+测试套件类中除了测试函数，其他函数不放。
+page、element、data中不能有任何测试函数（不能有任何testng的注释）。
+测试类和函数需要@test注释，至少有以下属性
+description 说明
+group 设置运行组
+
+除了测试函数，其他函数请加上以下java注释
+	/**
+	 * 函数(类)介绍
+	 * @param 参数1
+	 * @return 返回值
+	 */
+
+5、上传规则
+不要将以下文件上传
+编译文件
+日志报告等输出文件
+eclipse工程文件
